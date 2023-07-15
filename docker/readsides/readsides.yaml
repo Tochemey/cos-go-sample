@@ -1,0 +1,7 @@
+readSideId: dbwriter
+host: dbwriter
+port: 50053
+useTls: false
+autoStart: true
+enabled: true
+failurePolicy: SKIP

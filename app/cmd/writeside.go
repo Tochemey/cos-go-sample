@@ -29,7 +29,9 @@ var writesideCmd = &cobra.Command{
 		// create the instance of the service
 		service := writeside.NewHandlerService(commandsDispatcher, eventsDispatcher)
 		// create the grpc server
-		grpcServer, err := gopack.NewServerBuilderFromConfig(config).WithService(service).Build()
+		grpcServer, err := gopack.
+			NewServerBuilderFromConfig(config).
+			WithService(service).Build()
 		// log the error in case there is one and panic
 		if err != nil {
 			zapl.Panic(errors.Wrap(err, "failed to build a grpc server"))

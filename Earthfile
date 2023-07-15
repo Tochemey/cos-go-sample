@@ -59,3 +59,31 @@ local-test:
     END
 
     SAVE ARTIFACT coverage.out AS LOCAL coverage.out
+
+compile:
+    WORKDIR /build
+
+    COPY +vendor/files ./
+
+    RUN go build -mod=vendor  -o bin/accounts ./app/main.go
+
+    SAVE ARTIFACT bin/accounts /accounts
+
+docker-image:
+     FROM alpine:3.16.2
+
+    # define the image version
+    ARG VERSION=dev
+
+    WORKDIR /app
+    COPY +compile/accounts ./accounts
+    RUN chmod +x ./accounts
+
+    # we listen to rpc calls on this port
+    EXPOSE 50051
+    # we start our prometheus server on this port
+    EXPOSE 9092
+
+    ENTRYPOINT ["./accounts"]
+
+    SAVE IMAGE --push accounts:${VERSION}

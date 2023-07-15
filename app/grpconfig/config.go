@@ -18,6 +18,20 @@ type Config struct {
 	EnableReflection bool   `env:"SERVER_REFLECTION_ENABLED" envDefault:"false"` // EnableReflection this is useful or local dev testing
 }
 
+// GetGrpcConfig returns a grpc config from the config object
+func (c Config) GetGrpcConfig() *grpc.Config {
+	return &grpc.Config{
+		ServiceName:      c.ServiceName,
+		GrpcHost:         "",
+		GrpcPort:         int32(c.GrpcPort),
+		TraceEnabled:     c.TraceEnabled,
+		TraceURL:         c.TraceURL,
+		EnableReflection: c.EnableReflection,
+		MetricsEnabled:   c.MetricsEnabled,
+		MetricsPort:      c.MetricsPort,
+	}
+}
+
 // LoadConfig return the Config from env vars or panic in case of error
 // we panic here because this call is usually and must be done during application start
 func LoadConfig() *grpc.Config {
