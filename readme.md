@@ -1,6 +1,7 @@
 ## Sample Application
 
 [![build](https://github.com/Tochemey/cos-go-sample/actions/workflows/build.yml/badge.svg)](https://github.com/Tochemey/cos-go-sample/actions/workflows/build.yml)
+[![codecov](https://codecov.io/gh/Tochemey/cos-go-sample/branch/main/graph/badge.svg?token=6gqm0NkTJf)](https://codecov.io/gh/Tochemey/cos-go-sample)
 
 ### Overview
 This is to demonstrate how to build a distributed and fault-tolerant event-sourcing/cqrs application in Go using [Chief of State](https://github.com/chief-of-state/chief-of-state).
