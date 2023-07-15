@@ -18,6 +18,9 @@ jobs:
         with:
           submodules: false
           fetch-depth: 0
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
       - name: Checkout submodules
         uses: srt32/git-actions@v0.0.3
         with:
