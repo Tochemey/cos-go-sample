@@ -4,11 +4,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/tochemey/cos-go-sample/app/grpconfig"
-
 	"github.com/google/go-cmp/cmp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/tochemey/cos-go-sample/app/grpconfig"
 )
 
 func TestGetConfig(t *testing.T) {
@@ -23,7 +22,6 @@ func TestGetConfig(t *testing.T) {
 			CosHost: "localhost",
 			CosPort: 9000,
 			GRPCConfig: grpconfig.Config{
-				LogLevel:         "INFO",
 				ServiceName:      "accounts",
 				GrpcPort:         50051,
 				TraceEnabled:     false,
