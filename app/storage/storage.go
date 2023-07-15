@@ -46,8 +46,5 @@ func NewTestStorage(db postgres.Postgres) Storage {
 
 // Shutdown shuts down the database connection
 func (s *storage) Shutdown(ctx context.Context) error {
-	if err := s.db.Disconnect(ctx); err != nil {
-		return err
-	}
-	return nil
+	return s.db.Disconnect(ctx)
 }
