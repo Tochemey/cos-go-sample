@@ -1,11 +1,14 @@
-# Sample Application
+## Sample Application
 
+[![build](https://github.com/Tochemey/cos-go-sample/actions/workflows/build.yml/badge.svg)](https://github.com/Tochemey/cos-go-sample/actions/workflows/build.yml)
+
+### Overview
 This is to demonstrate how to build a distributed and fault-tolerant event-sourcing/cqrs application in Go using [Chief of State](https://github.com/chief-of-state/chief-of-state).
 The project adheres to [Semantic Versioning](https://semver.org) and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ### Features
 
-#### Requests
+#### API Requests
 - [Open Account](protos/local/accounts/v1/service.proto)
 - [Credit Account](protos/local/accounts/v1/service.proto)
 - [Debit Account](protos/local/accounts/v1/service.proto)
@@ -39,7 +42,7 @@ git clone git@github.com:Tochemey/cos-go-sample.git
 # update the git submodule
 git submodule update --init
 
-# generate the protobuf binaries
+# generate the protobuf binaries and mocks
 earthly +protogen
 earthly +mock
 

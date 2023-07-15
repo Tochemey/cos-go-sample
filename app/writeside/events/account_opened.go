@@ -9,7 +9,7 @@ import (
 )
 
 // accountOpened handles the account opened event and returns the resulting state
-func accountOpened(ctx context.Context, event *pb.AccountOpened, priorState *pb.BankAccount) (*pb.BankAccount, error) {
+func accountOpened(ctx context.Context, event *pb.AccountOpened) (*pb.BankAccount, error) {
 	// add a span context to trace the event handler
 	ctx, span := trace.SpanContext(ctx, "HandleAccountOpened")
 	defer span.End()

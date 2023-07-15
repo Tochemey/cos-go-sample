@@ -15,9 +15,6 @@ func TestOpenAccount(t *testing.T) {
 	accountID := "account-1"
 	amount := 50.00
 
-	// create the prior state
-	priorState := &pb.BankAccount{}
-
 	// create the command
 	command := &pb.OpenAccount{
 		AccountId:      accountID,
@@ -31,7 +28,7 @@ func TestOpenAccount(t *testing.T) {
 	}
 
 	// perform the credit account command handling
-	actual, err := openAccount(ctx, command, priorState)
+	actual, err := openAccount(ctx, command)
 	require.NoError(t, err)
 	require.NotNil(t, actual)
 	require.IsType(t, new(pb.AccountOpened), actual)

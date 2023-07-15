@@ -34,10 +34,10 @@ func NewDispatcher() Dispatcher {
 }
 
 // Dispatch dispatches the given command and return the appropriate event or an error
-func (h dispatcher) Dispatch(ctx context.Context, command proto.Message, priorState *pb.BankAccount, priorMeta *cospb.MetaData) (event proto.Message, err error) {
+func (h dispatcher) Dispatch(ctx context.Context, command proto.Message, priorState *pb.BankAccount, priorMeta *cospb.MetaData) (event proto.Message, err error) { //nolint
 	switch typedCmd := command.(type) {
 	case *pb.OpenAccount:
-		return openAccount(ctx, typedCmd, priorState)
+		return openAccount(ctx, typedCmd)
 	case *pb.CreditAccount:
 		return creditAccount(ctx, typedCmd, priorState)
 	case *pb.DebitAccount:

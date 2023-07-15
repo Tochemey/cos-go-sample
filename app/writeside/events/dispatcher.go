@@ -32,10 +32,10 @@ func NewDispatcher() Dispatcher {
 }
 
 // Dispatch dispatches the given event and return the appropriate event or an error
-func (h dispatcher) Dispatch(ctx context.Context, event proto.Message, priorState *pb.BankAccount, eventMeta *cospb.MetaData) (newState *pb.BankAccount, err error) {
+func (h dispatcher) Dispatch(ctx context.Context, event proto.Message, priorState *pb.BankAccount, eventMeta *cospb.MetaData) (newState *pb.BankAccount, err error) { //nolint
 	switch typedEvent := event.(type) {
 	case *pb.AccountOpened:
-		return accountOpened(ctx, typedEvent, priorState)
+		return accountOpened(ctx, typedEvent)
 	case *pb.AccountCredited:
 		return accountCredited(ctx, typedEvent, priorState)
 	case *pb.AccountDebited:

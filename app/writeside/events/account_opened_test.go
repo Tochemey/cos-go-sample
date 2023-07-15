@@ -17,9 +17,6 @@ func TestAccountOpened(t *testing.T) {
 	accountOwner := "John Doe"
 	amount := 50.00
 
-	// create the prior state
-	priorState := &pb.BankAccount{}
-
 	// create the event
 	event := &pb.AccountOpened{
 		AccountId:    accountID,
@@ -34,7 +31,7 @@ func TestAccountOpened(t *testing.T) {
 		IsClosed:       false,
 	}
 
-	actual, err := accountOpened(ctx, event, priorState)
+	actual, err := accountOpened(ctx, event)
 	require.NoError(t, err)
 	require.NotNil(t, actual)
 	require.IsType(t, new(pb.BankAccount), actual)

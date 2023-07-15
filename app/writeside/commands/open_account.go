@@ -10,7 +10,7 @@ import (
 
 // openAccount handles the Open Account command. When the command is valid the account credited event is returned
 // to be persisted. On the contrary a validation error is returned
-func openAccount(ctx context.Context, command *pb.OpenAccount, priorState *pb.BankAccount) (*pb.AccountOpened, error) {
+func openAccount(ctx context.Context, command *pb.OpenAccount) (*pb.AccountOpened, error) {
 	// add a span context to trace the event handler
 	ctx, span := trace.SpanContext(ctx, "HandleOpenAccount")
 	defer span.End()
