@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package accounts.v1;
+
+// OpenAccount defines the open account command
+message OpenAccount {
+  // Specifies the account id
+  string account_id = 1;
+  // Specifies the account owner
+  string account_owner = 2;
+  // Specifies the opening balance
+  double opening_balance = 3;
+}
+
+// DebitAccount defines the debit account command
+message DebitAccount {
+  // Specifies the account id
+  string account_id = 1;
+  // Specifies the amount to debit
+  double amount = 2;
+}
+
+// CreditAccount defines the credit account command
+message CreditAccount {
+  // Specifies the account id
+  string account_id = 1;
+  // Specifies the amount to credit
+  double amount = 2;
+}
+
+// GetAccount defines the get account command
+message GetAccount {
+  // Specifies the account id
+  string account_id = 1;
+}

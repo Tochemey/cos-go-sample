@@ -1,0 +1,4 @@
+version: v1
+directories:
+  - protos/local
+  - protos/chief-of-state-protos

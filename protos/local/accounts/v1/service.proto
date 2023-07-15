@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package accounts.v1;
+
+import "accounts/v1/state.proto";
+import "google/protobuf/any.proto";
+
+// BankAccountService defines the service
+service BankAccountService {
+  // OpenAccount helps open a bank account. When the request is successful the newly created account object is returned in the response.
+  // In case of error a gRPC error is returned. For more information refer to https://www.grpc.io/docs/guides/error/
+  rpc OpenAccount(OpenAccountRequest) returns (OpenAccountResponse);
+  // DebitAccount sends a debit account request to the service. When the request is successful the debited account with the new balance is returned in the response.
+  // In case of error a gRPC error is returned. For more information refer to https://www.grpc.io/docs/guides/error/
+  rpc DebitAccount(DebitAccountRequest) returns (DebitAccountResponse);
+  // CreditAccount sends a credit account request to the service. When the request is successful the newly credited account with the new balance is returned in the response.
+  // In case of error a gRPC error is returned. For more information refer to https://www.grpc.io/docs/guides/error/
+  rpc CreditAccount(CreditAccountRequest) returns (CreditAccountResponse);
+  // GetAccount returns a given account information. When the request is successful the account info is returned in the response.
+  // In case of error a gRPC error is returned. For more information refer to https://www.grpc.io/docs/guides/error/
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse);
+}
+
+// OpenAccountRequest defines the open account request
+message OpenAccountRequest {
+  // Specifies the account owner
+  string account_owner = 1;
+  // Specifies the opening balance
+  double balance = 2;
+  // Specifies the account id. This is optional because it can be auto-generated when not set
+  // in the request
+  optional string account_id = 3;
+}
+
+// OpenAccountResponse defines the open account response
+message OpenAccountResponse {
+  // Specifies the account entity
+  BankAccount account = 1;
+}
+
+// DebitAccountRequest defines the debit account request
+message DebitAccountRequest {
+  // Specifies the account id
+  string account_id = 1;
+  // Specifies the amount to debit
+  double amount = 2;
+}
+
+// DebitAccountResponse defines the debit account response
+message DebitAccountResponse {
+  // Specifies the account entity
+  BankAccount account = 1;
+}
+
+// CreditAccountRequest defines the credit account request
+message CreditAccountRequest {
+  // Specifies the account id
+  string account_id = 1;
+  // Specifies the amount to credit
+  double amount = 2;
+}
+
+// CreditAccountResponse defines the credit account response
+message CreditAccountResponse {
+  // Specifies the account entity
+  BankAccount account = 1;
+}
+
+// GetAccountRequest defines the get/read account request
+message GetAccountRequest {
+  string account_id = 1;
+}
+
+// GetAccountResponse defines the get/read account response
+message GetAccountResponse {
+  // Specifies the account entity
+  BankAccount account = 1;
+}

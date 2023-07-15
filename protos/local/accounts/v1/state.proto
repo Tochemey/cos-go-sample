@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package accounts.v1;
+
+message BankAccount {
+  string account_id = 1;
+  double account_balance = 2;
+  string account_owner = 3;
+  bool is_closed = 4;
+}
