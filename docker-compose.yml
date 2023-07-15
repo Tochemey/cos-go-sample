@@ -3,6 +3,12 @@ version: "3.9"
 services:
   accounts:
     image: accounts:dev
+    profiles:
+      - application
+    depends_on:
+      - chiefofstate
+      - db
+      - collector
     command:
       - serve
     ports:
@@ -15,12 +21,16 @@ services:
       COS_HOST: "chiefofstate"
       COS_PORT: 9000
       TRACE_ENABLED: "true"
-      TRACE_URL: "otlp:4317"
+      TRACE_URL: "collector:4317"
       METRICS_ENABLED: "false"
       METRICS_PORT: 9092
 
   writeside:
     image: accounts:dev
+    profiles:
+      - application
+    depends_on:
+      - collector
     command:
       - writeside
     ports:
@@ -31,12 +41,17 @@ services:
       SERVICE_NAME: writeside
       GRPC_PORT: 50051
       TRACE_ENABLED: "true"
-      TRACE_URL: "otlp:4317"
+      TRACE_URL: "collector:4317"
       METRICS_ENABLED: "false"
       METRICS_PORT: 9092
 
   dbwriter:
     image: accounts:dev
+    profiles:
+      - application
+    depends_on:
+      - db
+      - collector
     command:
       - dbwriter
     ports:
@@ -47,7 +62,7 @@ services:
       SERVICE_NAME: dbwriter
       GRPC_PORT: 50051
       TRACE_ENABLED: "true"
-      TRACE_URL: "otlp:4317"
+      TRACE_URL: "collector:4317"
       METRICS_ENABLED: "false"
       METRICS_PORT: 9092
       DB_USER: "postgres"
@@ -63,8 +78,8 @@ services:
     volumes:
       - ./db/migrations:/docker-entrypoint-initdb.d
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: changeme
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
@@ -89,7 +104,7 @@ services:
     ports:
       - "9090:9090"
 
-  otlp:
+  collector:
     image: otel/opentelemetry-collector-contrib:0.52.0
     command: ["--config=/etc/otel/config.yaml", ""]
     depends_on:
@@ -135,10 +150,10 @@ services:
       COS_DB_CREATE_TABLES: "true"
       COS_DB_USER: "postgres"
       COS_DB_PASSWORD: "changeme"
-      COS_DB_HOST: "postgres"
+      COS_DB_HOST: "db"
       COS_DB_PORT: 5432
       COS_DB_DB: "postgres"
-      COS_DB_SCHEMA: "public"
+      COS_DB_SCHEMA: "cos"
       COS_EVENTS_BATCH_THRESHOLD: 2
       COS_NUM_SNAPSHOTS_TO_RETAIN: 2
       COS_READ_SIDE_ENABLED: "true"
@@ -148,5 +163,5 @@ services:
       COS_READ_SIDE_CONFIG__ENABLED__DBWRITER: true
       COS_READ_SIDE_CONFIG__FAILURE_POLICY__DBWRITER: SKIP
       OTEL_JAVAAGENT_ENABLED: "true"
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://otlp:4317
-      OTEL_SERVICE_NAME: chiefofstate
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://collector:4317
+      OTEL_SERVICE_NAME: "chiefofstate"

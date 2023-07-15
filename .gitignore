@@ -4,3 +4,4 @@ vendor/
 .vscode/
 gen/
 mocks
+coverage.out

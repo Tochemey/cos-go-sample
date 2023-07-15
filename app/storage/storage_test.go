@@ -27,7 +27,7 @@ func TestNew(t *testing.T) {
 		}
 
 		assert.NotPanics(t, fn)
-		assert.NotPanics(t, dataStore.Shutdown(ctx))
+		assert.NoError(t, dataStore.Shutdown(ctx))
 		assert.NoError(t, os.Unsetenv("DB_HOST"))
 		assert.NoError(t, os.Unsetenv("DB_PORT"))
 		assert.NoError(t, os.Unsetenv("DB_NAME"))

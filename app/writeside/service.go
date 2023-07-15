@@ -3,13 +3,12 @@ package writeside
 import (
 	"context"
 
-	"github.com/tochemey/cos-go-sample/app/writeside/commands"
-	"github.com/tochemey/cos-go-sample/app/writeside/events"
-
 	"github.com/pkg/errors"
 	"github.com/tochemey/cos-go-sample/app/cos"
+	"github.com/tochemey/cos-go-sample/app/log"
+	"github.com/tochemey/cos-go-sample/app/writeside/commands"
+	"github.com/tochemey/cos-go-sample/app/writeside/events"
 	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
-	"github.com/tochemey/gopack/log/zapl"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/anypb"
 )
@@ -35,14 +34,14 @@ func NewHandlerService(commandsDispatcher commands.Dispatcher, eventsDispatcher 
 
 // HandleCommand accepts commands and returns events for CoS write handler
 func (s HandlerService) HandleCommand(ctx context.Context, request *cospb.HandleCommandRequest) (*cospb.HandleCommandResponse, error) {
-	// set the log with the context
-	log := zapl.WithContext(ctx)
+	// set the logger with the context
+	logger := log.WithContext(ctx)
 
 	// unpacking the command
 	cmd, err := request.GetCommand().UnmarshalNew()
 	if err != nil {
 		err = errors.Wrapf(err, "failed to unpack command:(%s)", request.GetCommand().GetTypeUrl())
-		log.Error(err)
+		logger.Error(err)
 		return nil, err
 	}
 
@@ -50,14 +49,14 @@ func (s HandlerService) HandleCommand(ctx context.Context, request *cospb.Handle
 	priorState, err := cos.UnmarshalState(request.GetPriorState())
 	if err != nil {
 		err = errors.Wrapf(err, "failed to unpack state:(%s)", request.GetPriorState().GetTypeUrl())
-		log.Error(err)
+		logger.Error(err)
 		return nil, err
 	}
 
 	event, err := s.commandsDispatcher.Dispatch(ctx, cmd, priorState, request.GetPriorEventMeta())
 	if err != nil {
 		err = errors.Wrapf(err, "failed to handle command:(%s)", cmd.ProtoReflect().Descriptor().FullName())
-		log.Error(err)
+		logger.Error(err)
 		return nil, err
 	}
 
@@ -70,7 +69,7 @@ func (s HandlerService) HandleCommand(ctx context.Context, request *cospb.Handle
 		if err != nil {
 			err = errors.Wrapf(err, "failed to pack event:(%s) as any proto message",
 				event.ProtoReflect().Descriptor().FullName())
-			log.Error(err)
+			logger.Error(err)
 			return nil, err
 		}
 
@@ -89,12 +88,12 @@ func (s HandlerService) HandleCommand(ctx context.Context, request *cospb.Handle
 
 // HandleEvent accepts events and returns new states for CoS write handler
 func (s HandlerService) HandleEvent(ctx context.Context, request *cospb.HandleEventRequest) (*cospb.HandleEventResponse, error) {
-	// set the log with the context
-	log := zapl.WithContext(ctx)
+	// set the logger with the context
+	logger := log.WithContext(ctx)
 	event, err := request.GetEvent().UnmarshalNew()
 	if err != nil {
 		err = errors.Wrapf(err, "failed to unpack event:(%s)", request.GetEvent().GetTypeUrl())
-		log.Error(err)
+		logger.Error(err)
 		return nil, err
 	}
 
@@ -103,7 +102,7 @@ func (s HandlerService) HandleEvent(ctx context.Context, request *cospb.HandleEv
 	// handle the error
 	if err != nil {
 		err = errors.Wrapf(err, "failed to unpack state:(%s)", request.GetPriorState().GetTypeUrl())
-		log.Error(err)
+		logger.Error(err)
 		return nil, err
 	}
 
@@ -112,7 +111,7 @@ func (s HandlerService) HandleEvent(ctx context.Context, request *cospb.HandleEv
 	// handle the error
 	if err != nil {
 		err = errors.Wrapf(err, "failed to handle event:(%s)", event.ProtoReflect().Descriptor().FullName())
-		log.Error(err)
+		logger.Error(err)
 		return nil, err
 	}
 
@@ -121,7 +120,7 @@ func (s HandlerService) HandleEvent(ctx context.Context, request *cospb.HandleEv
 	if err != nil {
 		err = errors.Wrapf(err, "failed to pack resulting state:(%s) as any proto message",
 			resultingState.ProtoReflect().Descriptor().FullName())
-		log.Error(err)
+		logger.Error(err)
 		return nil, err
 	}
 

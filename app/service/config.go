@@ -4,7 +4,6 @@ import (
 	"github.com/caarlos0/env/v9"
 	"github.com/pkg/errors"
 	"github.com/tochemey/cos-go-sample/app/grpconfig"
-	"github.com/tochemey/gopack/log/zapl"
 )
 
 // Config defines the application config
@@ -20,7 +19,7 @@ func LoadConfig() *Config {
 	// all env vars are required
 	opts := env.Options{RequiredIfNoDef: true}
 	if err := env.ParseWithOptions(config, opts); err != nil {
-		zapl.Panic(errors.Wrap(err, "unable to load environment variables"))
+		panic(errors.Wrap(err, "unable to load environment variables"))
 		return nil
 	}
 

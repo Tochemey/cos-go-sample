@@ -5,8 +5,8 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/pkg/errors"
+	"github.com/tochemey/cos-go-sample/app/log"
 	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
-	"github.com/tochemey/gopack/log/zapl"
 	"github.com/tochemey/gopack/otel/trace"
 	"github.com/tochemey/gopack/postgres"
 	"google.golang.org/protobuf/proto"
@@ -19,7 +19,7 @@ func (s *storage) PersistAccount(ctx context.Context, account *pb.BankAccount) e
 	defer span.End()
 
 	// get the context logger
-	logger := zapl.WithContext(ctx)
+	logger := log.WithContext(ctx)
 
 	// check whether the account record is set or not
 	if account == nil || proto.Equal(account, new(pb.BankAccount)) {

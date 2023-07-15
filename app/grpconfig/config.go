@@ -4,7 +4,6 @@ import (
 	"github.com/caarlos0/env/v9"
 	"github.com/pkg/errors"
 	"github.com/tochemey/gopack/grpc"
-	"github.com/tochemey/gopack/log/zapl"
 )
 
 // Config represents the gRPC service configuration
@@ -34,7 +33,7 @@ func (c Config) GetGrpcConfig() *grpc.Config {
 
 // LoadConfig return the Config from env vars or panic in case of error
 // we panic here because this call is usually and must be done during application start
-func LoadConfig() *grpc.Config {
+func LoadConfig() *Config {
 	config := &Config{}
 	// all env vars are required
 	opts := env.Options{RequiredIfNoDef: true}
@@ -42,18 +41,8 @@ func LoadConfig() *grpc.Config {
 	// parse the environment variables and panic in case of error
 	// we panic here because this call is usually and must be done during application start
 	if err := env.ParseWithOptions(config, opts); err != nil {
-		zapl.Panic(errors.Wrap(err, "unable to load environment variables"))
+		panic(errors.Wrap(err, "unable to load environment variables"))
 	}
 
-	// create the actual grpc config and return the object
-	return &grpc.Config{
-		ServiceName:      config.ServiceName,
-		GrpcHost:         "",
-		GrpcPort:         int32(config.GrpcPort),
-		TraceEnabled:     config.TraceEnabled,
-		TraceURL:         config.TraceURL,
-		EnableReflection: config.EnableReflection,
-		MetricsEnabled:   config.MetricsEnabled,
-		MetricsPort:      config.MetricsPort,
-	}
+	return config
 }

@@ -7,7 +7,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/tochemey/gopack/grpc"
 )
 
 func TestGetGrpcConfig(t *testing.T) {
@@ -16,9 +15,8 @@ func TestGetGrpcConfig(t *testing.T) {
 		assert.NoError(t, os.Setenv("SERVICE_NAME", "accounts"))
 
 		// let us defined the expected value
-		expected := &grpc.Config{
+		expected := &Config{
 			ServiceName:      "accounts",
-			GrpcHost:         "",
 			GrpcPort:         50051,
 			TraceEnabled:     false,
 			TraceURL:         "",
@@ -36,7 +34,7 @@ func TestGetGrpcConfig(t *testing.T) {
 	})
 	t.Run("With the service name is not set", func(t *testing.T) {
 		// fetch the actual config. This will panic
-		var actual *grpc.Config
+		var actual *Config
 		assert.Panics(t, func() {
 			actual = LoadConfig()
 		})

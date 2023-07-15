@@ -2,6 +2,9 @@ package cmd
 
 import (
 	"context"
+	"fmt"
+
+	"github.com/tochemey/cos-go-sample/app/log"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -10,7 +13,6 @@ import (
 	"github.com/tochemey/cos-go-sample/app/writeside/commands"
 	"github.com/tochemey/cos-go-sample/app/writeside/events"
 	gopack "github.com/tochemey/gopack/grpc"
-	"github.com/tochemey/gopack/log/zapl"
 )
 
 // writesideCmd represents the runWriteside command
@@ -30,16 +32,20 @@ var writesideCmd = &cobra.Command{
 		service := writeside.NewHandlerService(commandsDispatcher, eventsDispatcher)
 		// create the grpc server
 		grpcServer, err := gopack.
-			NewServerBuilderFromConfig(config).
+			NewServerBuilderFromConfig(config.GetGrpcConfig()).
 			WithService(service).Build()
 		// log the error in case there is one and panic
 		if err != nil {
-			zapl.Panic(errors.Wrap(err, "failed to build a grpc server"))
+			log.Panic(errors.Wrap(err, "failed to build a grpc server"))
 		}
 		// start the service
 		if err := grpcServer.Start(ctx); err != nil {
-			zapl.Panic(errors.Wrap(err, "failed to create a grpc service"))
+			log.Panic(errors.Wrap(err, "failed to create a grpc service"))
 		}
+
+		// add some information logging
+		log.Infof("accounts writeside service started on (%s)", fmt.Sprintf(":%d", config.GrpcPort))
+
 		// await for termination
 		grpcServer.AwaitTermination(ctx)
 	},

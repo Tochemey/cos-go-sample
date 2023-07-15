@@ -3,8 +3,8 @@ package commands
 import (
 	"context"
 
+	"github.com/tochemey/cos-go-sample/app/log"
 	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
-	"github.com/tochemey/gopack/log/zapl"
 	"github.com/tochemey/gopack/otel/trace"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -19,7 +19,7 @@ func debitAccount(ctx context.Context, command *pb.DebitAccount, priorState *pb.
 	defer span.End()
 
 	// get the context logger
-	logger := zapl.WithContext(ctx)
+	logger := log.WithContext(ctx)
 
 	// let us make a copy of the command and the prior state
 	commandCopy := proto.Clone(command).(*pb.DebitAccount)

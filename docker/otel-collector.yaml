@@ -7,12 +7,14 @@ receivers:
         endpoint: "0.0.0.0:4317"
 
 processors:
+  batch:
 extensions:
   health_check: { }
 exporters:
   jaeger:
     endpoint: "tracer:14250"
-    insecure: true
+    tls:
+      insecure: true
 
   prometheus:
     endpoint: "0.0.0.0:9102"
@@ -23,9 +25,9 @@ service:
   pipelines:
     traces:
       receivers: [ otlp ]
-      processors: [ batch]
+      processors: [ batch ]
       exporters: [ jaeger ]
     metrics:
       receivers: [ otlp ]
-      processors: [ batch]
+      processors: [ batch ]
       exporters: [ logging, prometheus ]

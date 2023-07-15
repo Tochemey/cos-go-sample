@@ -2,14 +2,15 @@ package cmd
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/tochemey/cos-go-sample/app/dbwriter"
 	"github.com/tochemey/cos-go-sample/app/grpconfig"
+	"github.com/tochemey/cos-go-sample/app/log"
 	"github.com/tochemey/cos-go-sample/app/storage"
 	gopack "github.com/tochemey/gopack/grpc"
-	"github.com/tochemey/gopack/log/zapl"
 )
 
 // dbWriterCmd represents the dbwriter command
@@ -27,22 +28,26 @@ var dbWriterCmd = &cobra.Command{
 		service, err := dbwriter.NewService(dataStore)
 		// log the error in case there is one and panic
 		if err != nil {
-			zapl.Panic(errors.Wrap(err, "failed to create db writer service"))
+			log.Panic(errors.Wrap(err, "failed to create db writer service"))
 		}
 		// create the grpc server
 		grpcServer, err := gopack.
-			NewServerBuilderFromConfig(config).
+			NewServerBuilderFromConfig(config.GetGrpcConfig()).
 			WithService(service).
-			WithShutdownHook(dataStore.Shutdown(ctx)).
+			WithShutdownHook(func(ctx context.Context) error {
+				return dataStore.Shutdown(ctx)
+			}).
 			Build()
 		// log the error in case there is one and panic
 		if err != nil {
-			zapl.Panic(errors.Wrap(err, "failed to build a grpc server"))
+			log.Panic(errors.Wrap(err, "failed to build a grpc server"))
 		}
 		// start the service
 		if err := grpcServer.Start(ctx); err != nil {
-			zapl.Panic(errors.Wrap(err, "failed to create a grpc service"))
+			log.Panic(errors.Wrap(err, "failed to create a grpc service"))
 		}
+		// add some information logging
+		log.Infof("accounts dbwriter service started on (%s)", fmt.Sprintf(":%d", config.GrpcPort))
 		// await for termination
 		grpcServer.AwaitTermination(ctx)
 	},

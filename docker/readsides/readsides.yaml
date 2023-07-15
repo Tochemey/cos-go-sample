@@ -1,6 +1,6 @@
 readSideId: dbwriter
 host: dbwriter
-port: 50053
+port: 50051
 useTls: false
 autoStart: true
 enabled: true
