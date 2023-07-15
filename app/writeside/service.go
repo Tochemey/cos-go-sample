@@ -47,7 +47,7 @@ func (s HandlerService) HandleCommand(ctx context.Context, request *cospb.Handle
 	}
 
 	// unpacking the state
-	priorState, err := cos.UnpackState(request.GetPriorState())
+	priorState, err := cos.UnmarshalState(request.GetPriorState())
 	if err != nil {
 		err = errors.Wrapf(err, "failed to unpack state:(%s)", request.GetPriorState().GetTypeUrl())
 		log.Error(err)
@@ -99,7 +99,7 @@ func (s HandlerService) HandleEvent(ctx context.Context, request *cospb.HandleEv
 	}
 
 	// unpack the prior state
-	state, err := cos.UnpackState(request.GetPriorState())
+	state, err := cos.UnmarshalState(request.GetPriorState())
 	// handle the error
 	if err != nil {
 		err = errors.Wrapf(err, "failed to unpack state:(%s)", request.GetPriorState().GetTypeUrl())

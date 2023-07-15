@@ -51,7 +51,7 @@ func (s Service) HandleReadSide(ctx context.Context, request *cospb.HandleReadSi
 	}
 
 	// let us unmarshall the user
-	unpackState, err := cos.UnpackState(request.GetState())
+	unpackState, err := cos.UnmarshalState(request.GetState())
 	// handle the error
 	if err != nil {
 		err = errors.Wrapf(err, "failed to unpack state:(%s)", request.GetState().GetTypeUrl())

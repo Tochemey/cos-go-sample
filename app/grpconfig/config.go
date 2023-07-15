@@ -9,7 +9,6 @@ import (
 
 // Config represents the gRPC service configuration
 type Config struct {
-	LogLevel         string `env:"LOG_LEVEL" envDefault:"INFO"`                  // LogLevel define the application log level
 	ServiceName      string `env:"SERVICE_NAME"`                                 // ServiceName is the name given that will show in the traces
 	GrpcPort         int    `env:"GRPC_PORT" envDefault:"50051"`                 // GrpcPort is the gRPC port used to received and handle gRPC requests
 	MetricsEnabled   bool   `env:"METRICS_ENABLED" envDefault:"false"`           // MetricsEnabled checks whether metrics should be enabled or not

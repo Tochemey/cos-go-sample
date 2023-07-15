@@ -16,7 +16,7 @@ import (
 
 // Client is used by both the service and the consumer implementation.
 type Client interface {
-	ProcessCommand(ctx context.Context, userID string, command proto.Message) (*pb.BankAccount, *cospb.MetaData, error)
+	ProcessCommand(ctx context.Context, accountID string, command proto.Message) (*pb.BankAccount, *cospb.MetaData, error)
 	GetState(ctx context.Context, accountID string) (*pb.BankAccount, *cospb.MetaData, error)
 }
 
@@ -41,7 +41,7 @@ func NewClient(ctx context.Context, cosHost string, cosPort int) (Client, error)
 }
 
 // ProcessCommand sends a command to COS and returns the resulting state and metadata
-func (c client) ProcessCommand(ctx context.Context, userID string, command proto.Message) (*pb.BankAccount, *cospb.MetaData, error) {
+func (c client) ProcessCommand(ctx context.Context, accountID string, command proto.Message) (*pb.BankAccount, *cospb.MetaData, error) {
 	// require a command
 	if command == nil {
 		return nil, nil, status.Error(codes.Internal, "command is missing")
@@ -52,7 +52,7 @@ func (c client) ProcessCommand(ctx context.Context, userID string, command proto
 
 	// construct COS request
 	request := &cospb.ProcessCommandRequest{
-		EntityId: userID,
+		EntityId: accountID,
 		Command:  cmdAny,
 	}
 
@@ -63,7 +63,7 @@ func (c client) ProcessCommand(ctx context.Context, userID string, command proto
 	}
 
 	// unpack the resulting state
-	resultingState, err := UnpackState(response.GetState())
+	resultingState, err := UnmarshalState(response.GetState())
 	if err != nil {
 		return nil, nil, err
 	}
@@ -92,7 +92,7 @@ func (c client) GetState(ctx context.Context, accountID string) (*pb.BankAccount
 	}
 
 	// unpack the resulting state
-	resultingState, err := UnpackState(response.GetState())
+	resultingState, err := UnmarshalState(response.GetState())
 	if err != nil {
 		return nil, nil, err
 	}
@@ -101,8 +101,8 @@ func (c client) GetState(ctx context.Context, accountID string) (*pb.BankAccount
 	return resultingState, response.GetMeta(), nil
 }
 
-// UnpackState unpacks the actual state from the proto any message
-func UnpackState(any *anypb.Any) (*pb.BankAccount, error) {
+// UnmarshalState unpacks the actual state from the proto any message
+func UnmarshalState(any *anypb.Any) (*pb.BankAccount, error) {
 	msg, err := any.UnmarshalNew()
 	if err != nil {
 		return nil, err
