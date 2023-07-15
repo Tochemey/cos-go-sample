@@ -14,8 +14,10 @@ jobs:
         with:
           submodules: false
           fetch-depth: 0
-      - name: checkout submodules
-        run: "git submodule update --init"
+      - name: Checkout submodules
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init --recursive
       - uses: wagoid/commitlint-github-action@v5.3.0
       - name: Login to GitHub Docker
         env:
