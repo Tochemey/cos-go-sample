@@ -2,6 +2,10 @@ VERSION 0.7
 
 FROM tochemey/docker-go:1.20.4-0.8.0
 
+test:
+  BUILD +lint
+  BUILD +local-test
+
 protogen:
 	# copy the proto files to generate
 	COPY --dir protos/ .
