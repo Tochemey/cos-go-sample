@@ -7,7 +7,7 @@ import (
 
 // Config represents the gRPC service configuration
 type Config struct {
-	LogLevel string `env:"LOG_LEVEL" envDefault:"INFO"` // LogLevel define the application log level
+	LogLevel string `env:"LOG_LEVEL" envDefault:"DEBUG"` // LogLevel define the application log level
 }
 
 // loadConfig return the Config from env vars or panic in case of error

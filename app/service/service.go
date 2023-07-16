@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/tochemey/cos-go-sample/app/cos"
+	"github.com/tochemey/cos-go-sample/app/log"
 	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 	"github.com/tochemey/gopack/log/zapl"
 	"google.golang.org/grpc"
@@ -30,7 +31,7 @@ func NewService(cosClient cos.Client) *Service {
 // In case of error a gRPC error is returned. For more information refer to https://www.grpc.io/docs/guides/error/
 func (s *Service) OpenAccount(ctx context.Context, request *pb.OpenAccountRequest) (*pb.OpenAccountResponse, error) {
 	// get context log
-	log := zapl.WithContext(ctx)
+	log := log.WithContext(ctx)
 
 	// let us generate the account id or use it
 	accountID := request.GetAccountId()
@@ -60,7 +61,7 @@ func (s *Service) OpenAccount(ctx context.Context, request *pb.OpenAccountReques
 // In case of error a gRPC error is returned. For more information refer to https://www.grpc.io/docs/guides/error/
 func (s *Service) DebitAccount(ctx context.Context, request *pb.DebitAccountRequest) (*pb.DebitAccountResponse, error) {
 	// get context log
-	log := zapl.WithContext(ctx)
+	log := log.WithContext(ctx)
 
 	// create the debit command
 	command := &pb.DebitAccount{
@@ -83,7 +84,7 @@ func (s *Service) DebitAccount(ctx context.Context, request *pb.DebitAccountRequ
 // In case of error a gRPC error is returned. For more information refer to https://www.grpc.io/docs/guides/error/
 func (s *Service) CreditAccount(ctx context.Context, request *pb.CreditAccountRequest) (*pb.CreditAccountResponse, error) {
 	// get context log
-	log := zapl.WithContext(ctx)
+	log := log.WithContext(ctx)
 
 	// create the command to send to CoS
 	command := &pb.CreditAccount{
