@@ -123,7 +123,7 @@ services:
       - ./docker/otel-collector.yaml:/etc/otel/config.yaml
 
   chiefofstate:
-    image: ghcr.io/chief-of-state/chief-of-state:dev
+    image: ghcr.io/chief-of-state/chief-of-state:2.4.1
     volumes:
       - ./docker/readsides:/readsides
     command:
@@ -155,7 +155,7 @@ services:
       COS_DB_DB: "postgres"
       COS_DB_SCHEMA: "cos"
       COS_EVENTS_BATCH_THRESHOLD: 2
-      COS_NUM_SNAPSHOTS_TO_RETAIN: 2
+      COS_NUM_SNAPSHOTS_TO_RETAIN: 1
       COS_READ_SIDE_ENABLED: "true"
       COS_READ_SIDE_CONFIG: /readsides
       COS_READ_SIDE_CONFIG__HOST__DBWRITER: dbwriter
