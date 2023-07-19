@@ -9,7 +9,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
-	github.com/stretchr/testify v1.8.3
+	github.com/stretchr/testify v1.8.4
 	github.com/tochemey/gopack v0.0.0-20230715012735-7937cdf1a691
 	google.golang.org/grpc v1.56.2
 	google.golang.org/protobuf v1.31.0
