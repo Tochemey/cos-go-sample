@@ -66,3 +66,4 @@ docker-compose logs -f --tail="all" accounts
 
 # view traces
 http://localhost:16686
+```

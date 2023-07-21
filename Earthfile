@@ -1,6 +1,6 @@
 VERSION 0.7
 
-FROM tochemey/docker-go:1.20.4-0.8.0
+FROM tochemey/docker-go:1.20.6-0.9.1
 
 test:
   BUILD +lint
