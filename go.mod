@@ -10,7 +10,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
 	github.com/stretchr/testify v1.8.4
-	github.com/tochemey/gopack v0.0.0-20230718213531-6306de42f8dc
+	github.com/tochemey/gopack v0.0.0-20240303193017-58b82904de1b
 	google.golang.org/grpc v1.56.2
 	google.golang.org/protobuf v1.31.0
 )
