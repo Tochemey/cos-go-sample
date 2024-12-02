@@ -23,7 +23,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - name: Checkout submodules
         run: git submodule update --init --recursive
-      - uses: wagoid/commitlint-github-action@v5.4.1
+      - uses: wagoid/commitlint-github-action@v5.5.1
       - name: Login to GitHub Docker
         env:
           DOCKER_REGISTRY: ghcr.io
