@@ -8,13 +8,14 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
-	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
-	mocks "github.com/tochemey/cos-go-sample/mocks/app/storage"
 	gopack "github.com/tochemey/gopack/grpc"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
+	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
+	mocks "github.com/tochemey/cos-go-sample/mocks/app/storage"
 )
 
 func TestNewService(t *testing.T) {

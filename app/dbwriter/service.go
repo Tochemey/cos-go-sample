@@ -4,14 +4,15 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
-	"github.com/tochemey/cos-go-sample/app/cos"
-	"github.com/tochemey/cos-go-sample/app/log"
-	"github.com/tochemey/cos-go-sample/app/storage"
-	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
+
+	"github.com/tochemey/cos-go-sample/app/cos"
+	"github.com/tochemey/cos-go-sample/app/log"
+	"github.com/tochemey/cos-go-sample/app/storage"
+	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
 )
 
 // Service is an implementation of the CoS ReadSide handler interface

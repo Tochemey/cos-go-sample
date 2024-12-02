@@ -3,11 +3,12 @@ package commands
 import (
 	"context"
 
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
-	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
+	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
 )
 
 var (

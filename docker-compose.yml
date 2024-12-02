@@ -123,7 +123,7 @@ services:
       - ./docker/otel-collector.yaml:/etc/otel/config.yaml
 
   chiefofstate:
-    image: ghcr.io/chief-of-state/chief-of-state:2.4.1
+    image: ghcr.io/chief-of-state/chief-of-state:2.5.0
     volumes:
       - ./docker/readsides:/readsides
     command:

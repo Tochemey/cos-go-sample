@@ -6,10 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
-	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/emptypb"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
+	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
 )
 
 func TestNewDispatcher(t *testing.T) {

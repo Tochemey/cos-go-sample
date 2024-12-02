@@ -7,9 +7,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
-	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
-	mocks "github.com/tochemey/cos-go-sample/mocks/gen/chief_of_state/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
@@ -17,6 +14,10 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
+	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
+	mocks "github.com/tochemey/cos-go-sample/mocks/gen/chief_of_state/v1"
 )
 
 type cosClientTestSuite struct {

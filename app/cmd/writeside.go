@@ -8,11 +8,12 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	gopack "github.com/tochemey/gopack/grpc"
+
 	"github.com/tochemey/cos-go-sample/app/grpconfig"
 	"github.com/tochemey/cos-go-sample/app/writeside"
 	"github.com/tochemey/cos-go-sample/app/writeside/commands"
 	"github.com/tochemey/cos-go-sample/app/writeside/events"
-	gopack "github.com/tochemey/gopack/grpc"
 )
 
 // writesideCmd represents the runWriteside command

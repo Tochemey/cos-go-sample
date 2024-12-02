@@ -5,8 +5,9 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/pkg/errors"
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 	"github.com/tochemey/gopack/otel/trace"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 )
 
 // GetAccounts fetches the ordered list of accounts.

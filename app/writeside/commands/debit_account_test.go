@@ -6,10 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 )
 
 func TestDebitAccount(t *testing.T) {

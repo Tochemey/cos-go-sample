@@ -5,14 +5,15 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/suite"
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
-	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
-	commands "github.com/tochemey/cos-go-sample/mocks/app/writeside/commands"
-	events "github.com/tochemey/cos-go-sample/mocks/app/writeside/events"
 	gopack "github.com/tochemey/gopack/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/anypb"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
+	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
+	commands "github.com/tochemey/cos-go-sample/mocks/app/writeside/commands"
+	events "github.com/tochemey/cos-go-sample/mocks/app/writeside/events"
 )
 
 type serviceSuite struct {

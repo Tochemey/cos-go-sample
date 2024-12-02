@@ -6,10 +6,11 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	gopack "github.com/tochemey/gopack/grpc"
+
 	"github.com/tochemey/cos-go-sample/app/cos"
 	"github.com/tochemey/cos-go-sample/app/log"
 	"github.com/tochemey/cos-go-sample/app/service"
-	gopack "github.com/tochemey/gopack/grpc"
 )
 
 // serveCmd represents the runApi command

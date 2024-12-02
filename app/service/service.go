@@ -4,11 +4,12 @@ import (
 	"context"
 
 	"github.com/google/uuid"
+	"github.com/tochemey/gopack/log/zapl"
+	"google.golang.org/grpc"
+
 	"github.com/tochemey/cos-go-sample/app/cos"
 	"github.com/tochemey/cos-go-sample/app/log"
 	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
-	"github.com/tochemey/gopack/log/zapl"
-	"google.golang.org/grpc"
 )
 
 // Service implements the application service interface

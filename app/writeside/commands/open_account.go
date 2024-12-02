@@ -3,9 +3,10 @@ package commands
 import (
 	"context"
 
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 	"github.com/tochemey/gopack/otel/trace"
 	"google.golang.org/protobuf/proto"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 )
 
 // openAccount handles the Open Account command. When the command is valid the account credited event is returned

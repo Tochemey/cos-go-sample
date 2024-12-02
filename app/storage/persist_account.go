@@ -5,11 +5,12 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/pkg/errors"
-	"github.com/tochemey/cos-go-sample/app/log"
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 	"github.com/tochemey/gopack/otel/trace"
 	"github.com/tochemey/gopack/postgres"
 	"google.golang.org/protobuf/proto"
+
+	"github.com/tochemey/cos-go-sample/app/log"
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 )
 
 // PersistAccount persist an account record into the database

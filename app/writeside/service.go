@@ -4,13 +4,14 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
+	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/anypb"
+
 	"github.com/tochemey/cos-go-sample/app/cos"
 	"github.com/tochemey/cos-go-sample/app/log"
 	"github.com/tochemey/cos-go-sample/app/writeside/commands"
 	"github.com/tochemey/cos-go-sample/app/writeside/events"
 	cospb "github.com/tochemey/cos-go-sample/gen/chief_of_state/v1"
-	"google.golang.org/grpc"
-	"google.golang.org/protobuf/types/known/anypb"
 )
 
 // HandlerService is an implementation of the CoS WriteSide handler interface

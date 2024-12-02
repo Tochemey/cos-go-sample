@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/caarlos0/env/v9"
 	"github.com/pkg/errors"
+
 	"github.com/tochemey/cos-go-sample/app/grpconfig"
 )
 

@@ -3,12 +3,13 @@ package commands
 import (
 	"context"
 
-	"github.com/tochemey/cos-go-sample/app/log"
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 	"github.com/tochemey/gopack/otel/trace"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
+
+	"github.com/tochemey/cos-go-sample/app/log"
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 )
 
 // debitAccount handles the Debit Account command. When the command is valid the account debited event is returned

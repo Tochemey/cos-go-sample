@@ -3,9 +3,10 @@ package events
 import (
 	"context"
 
-	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 	"github.com/tochemey/gopack/otel/trace"
 	"google.golang.org/protobuf/proto"
+
+	pb "github.com/tochemey/cos-go-sample/gen/accounts/v1"
 )
 
 // accountOpened handles the account opened event and returns the resulting state
