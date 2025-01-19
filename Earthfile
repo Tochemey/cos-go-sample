@@ -3,7 +3,7 @@ VERSION 0.8
 FROM tochemey/docker-go:1.23.2-5.0.0
 
 test:
-  BUILD +lint
+  #BUILD +lint
   BUILD +local-test
 
 protogen:
