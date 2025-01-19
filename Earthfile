@@ -1,4 +1,4 @@
-VERSION 0.7
+VERSION 0.8
 
 FROM tochemey/docker-go:1.23.2-5.0.0
 
