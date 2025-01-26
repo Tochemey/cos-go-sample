@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   accounts:
     image: accounts:dev
@@ -123,7 +121,7 @@ services:
       - ./docker/otel-collector.yaml:/etc/otel/config.yaml
 
   chiefofstate:
-    image: ghcr.io/chief-of-state/chief-of-state:2.5.0
+    image: ghcr.io/chief-of-state/chief-of-state:2.5.2
     volumes:
       - ./docker/readsides:/readsides
     command:

@@ -31,7 +31,7 @@ var _ Client = &client{}
 // NewClient creates a new instance of Client
 func NewClient(ctx context.Context, cosHost string, cosPort int) (Client, error) {
 	// get the grpc client connection to CoS
-	conn, err := gopack.GetClientConn(ctx, fmt.Sprintf("%v:%v", cosHost, cosPort))
+	conn, err := gopack.DefaultClientConn(fmt.Sprintf("%v:%v", cosHost, cosPort))
 	// handle the error
 	if err != nil {
 		return nil, err
