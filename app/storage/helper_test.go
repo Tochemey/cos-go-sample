@@ -20,7 +20,7 @@ const (
 // making use of the postgres database container
 func TestMain(m *testing.M) {
 	// set the test container
-	testContainer = postgres.NewTestContainer(testDatabase, testUser, testDatabasePassword)
+	testContainer = postgres.NewTestContainer(testDatabase, testUser, testDatabasePassword, "public")
 	// execute the tests
 	code := m.Run()
 	// free resources
@@ -30,8 +30,8 @@ func TestMain(m *testing.M) {
 }
 
 // dbHandle returns a test db
-func dbHandle(ctx context.Context) (*postgres.TestDB, error) {
-	db := testContainer.GetTestDB()
+func dbHandle(ctx context.Context) (*postgres.Testkit, error) {
+	db := testContainer.Testkit()
 	if err := db.Connect(ctx); err != nil {
 		return nil, err
 	}
@@ -40,11 +40,11 @@ func dbHandle(ctx context.Context) (*postgres.TestDB, error) {
 
 // SchemaUtils help create the various test tables in unit/integration tests
 type SchemaUtils struct {
-	db *postgres.TestDB
+	db *postgres.Testkit
 }
 
 // NewSchemaUtils creates an instance of SchemaUtils
-func NewSchemaUtils(db *postgres.TestDB) *SchemaUtils {
+func NewSchemaUtils(db *postgres.Testkit) *SchemaUtils {
 	return &SchemaUtils{db: db}
 }
 

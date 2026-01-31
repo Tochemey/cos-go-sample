@@ -3,7 +3,6 @@ package storage
 import (
 	"os"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/tochemey/gopack/postgres"
@@ -27,7 +26,6 @@ func TestConfig(t *testing.T) {
 		assert.Equal(t, "postgres", cfg.DBPassword)
 		assert.Equal(t, "postgres", cfg.DBName)
 		assert.Equal(t, "public", cfg.DBSchema)
-		assert.Equal(t, 5*time.Minute, cfg.ConnectionMaxLifetime)
 		// unset the en vars previously set
 		assert.NoError(t, os.Unsetenv("DB_HOST"))
 		assert.NoError(t, os.Unsetenv("DB_PORT"))

@@ -1,14 +1,16 @@
-version: v1
+version: v2
 managed:
   enabled: true
-  optimize_for: CODE_SIZE
-  go_package_prefix:
-    default: github.com/chief-of-state/cos-go-sample/gen
+  override:
+    - file_option: optimize_for
+      value: CODE_SIZE
+    - file_option: go_package_prefix
+      value: github.com/chief-of-state/cos-go-sample/gen
 plugins:
-  - name: go
+  - local: protoc-gen-go
     out: gen
     opt: paths=source_relative
-  - name: go-grpc
+  - local: protoc-gen-go-grpc
     out: gen
     opt:
       - paths=source_relative

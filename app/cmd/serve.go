@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"context"
 	"fmt"
 
 	"github.com/pkg/errors"
@@ -17,13 +16,13 @@ import (
 var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Run the accounts api service",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(cmd *cobra.Command, _ []string) {
 		// create the base context
-		ctx := context.Background()
+		ctx := cmd.Context()
 		// load the service config
 		config := service.LoadConfig()
 		// create the cos client
-		cosClient, err := cos.NewClient(ctx, config.CosHost, config.CosPort)
+		cosClient, err := cos.NewClient(config.CosHost, config.CosPort)
 		// handle the error
 		if err != nil {
 			log.Panic(errors.Wrap(err, "failed to create the CoS client"))

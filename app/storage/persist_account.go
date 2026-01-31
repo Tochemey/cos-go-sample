@@ -39,11 +39,11 @@ func (s *storage) PersistAccount(ctx context.Context, account *pb.BankAccount) e
 
 	// build the transaction runner
 	runner := txRunner.
-		AddQueryBuilder(&deleteStmt{account}).
-		AddQueryBuilder(&insertionStateStmt{account})
+		AddSQLBuilder(&deleteStmt{account}).
+		AddSQLBuilder(&insertionStateStmt{account})
 
 	// handle the error
-	if err = runner.Execute(); err != nil {
+	if err = runner.Run(); err != nil {
 		logger.Error(err)
 		return err
 	}
@@ -55,8 +55,9 @@ type deleteStmt struct {
 	account *pb.BankAccount
 }
 
-// BuildQuery build the SQL statement and arguments to run against the database
-func (s deleteStmt) BuildQuery() (sqlStatement string, args []any, err error) {
+var _ postgres.SQLBuilder = (*deleteStmt)(nil)
+
+func (s deleteStmt) ToSQL() (sqlStatement string, args []any, err error) {
 	// build the actual SQL statement and params
 	sqlStatement, args, err = sq.
 		StatementBuilder.
@@ -72,7 +73,7 @@ type insertionStateStmt struct {
 }
 
 // BuildQuery build the SQL statement and arguments to run against the database
-func (s insertionStateStmt) BuildQuery() (sqlStatement string, args []any, err error) {
+func (s insertionStateStmt) ToSQL() (sqlStatement string, args []any, err error) {
 	// build the actual SQL statement and params
 	sqlStatement, args, err = sq.
 		StatementBuilder.

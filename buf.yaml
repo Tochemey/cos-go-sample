@@ -1,0 +1,44 @@
+version: v2
+modules:
+  - path: protos/chief-of-state-protos
+    lint:
+      use:
+        - STANDARD
+        - UNARY_RPC
+      except:
+        - ENUM_VALUE_PREFIX
+        - ENUM_ZERO_VALUE_SUFFIX
+        - FIELD_NOT_REQUIRED
+        - PACKAGE_NO_IMPORT_CYCLE
+      ignore:
+        - protos/chief-of-state-protos/google/rpc/status.proto
+      enum_zero_value_suffix: _NONE
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FILE
+      except:
+        - EXTENSION_NO_DELETE
+        - FIELD_SAME_DEFAULT
+      ignore_unstable_packages: true
+  - path: protos/local
+    lint:
+      use:
+        - DEFAULT
+        - UNARY_RPC
+      except:
+        - ENUM_VALUE_PREFIX
+        - ENUM_ZERO_VALUE_SUFFIX
+        - FIELD_NOT_REQUIRED
+        - PACKAGE_NO_IMPORT_CYCLE
+      enum_zero_value_suffix: _NONE
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FILE
+      except:
+        - EXTENSION_NO_DELETE
+        - FIELD_SAME_DEFAULT
+      ignore_unstable_packages: true
+deps:
+  - buf.build/googleapis/googleapis

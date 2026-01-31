@@ -32,11 +32,9 @@ func TestCosClient(t *testing.T) {
 
 func (s *cosClientTestSuite) TestNewClient() {
 	s.Run("happy path", func() {
-		// create a context
-		ctx := context.TODO()
 		// this will work because grpc connection won't wait for connections to be
 		// established, and connecting happens in the background
-		cosClient, err := NewClient(ctx, "localhost", 50051)
+		cosClient, err := NewClient("localhost", 50051)
 		s.Assert().NotNil(cosClient)
 		s.Assert().NoError(err)
 	})

@@ -29,7 +29,7 @@ type client struct {
 var _ Client = &client{}
 
 // NewClient creates a new instance of Client
-func NewClient(ctx context.Context, cosHost string, cosPort int) (Client, error) {
+func NewClient(cosHost string, cosPort int) (Client, error) {
 	// get the grpc client connection to CoS
 	conn, err := gopack.DefaultClientConn(fmt.Sprintf("%v:%v", cosHost, cosPort))
 	// handle the error

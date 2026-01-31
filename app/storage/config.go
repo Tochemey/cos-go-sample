@@ -41,8 +41,7 @@ func LoadConfig() *postgres.Config {
 		DBUser:                config.DBUser,
 		DBPassword:            config.DBPassword,
 		DBSchema:              config.DBSchema,
-		MaxOpenConnections:    config.MaxOpenConnections,
-		MaxIdleConnections:    config.MaxIdleConnections,
-		ConnectionMaxLifetime: config.ConnectionMaxLifetime,
+		MaxConnections:        config.MaxOpenConnections,
+		MaxConnectionLifetime: config.ConnectionMaxLifetime,
 	}
 }
