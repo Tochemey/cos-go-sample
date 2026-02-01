@@ -43,5 +43,6 @@ func LoadConfig() *postgres.Config {
 		DBSchema:              config.DBSchema,
 		MaxConnections:        config.MaxOpenConnections,
 		MaxConnectionLifetime: config.ConnectionMaxLifetime,
+		HealthCheckPeriod:     time.Minute, // required: pgxpool panics on non-positive interval
 	}
 }
