@@ -21,7 +21,6 @@ func LoadConfig() *Config {
 	opts := env.Options{RequiredIfNoDef: true}
 	if err := env.ParseWithOptions(config, opts); err != nil {
 		panic(errors.Wrap(err, "unable to load environment variables"))
-		return nil
 	}
 
 	return config
